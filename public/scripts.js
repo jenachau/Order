@@ -95,8 +95,24 @@ document.getElementById('submit-name-button').addEventListener('click', () => {
 });
 
 // Xử lý việc tải file
+// Xử lý sự kiện khi chọn file
 document.getElementById('file-input').addEventListener('change', (event) => {
-    const file = event.target.files[0];
+    const filePasswordContainer = document.getElementById('file-password-container');
+    filePasswordContainer.style.display = 'block'; // Hiển thị phần nhập mật khẩu và submit khi chọn file
+});
+
+// Xử lý xác thực mật khẩu khi người dùng nhấn "Submit"
+document.getElementById('file-input').addEventListener('change', () => {
+    const fileVerificationCode = prompt("Vui lòng nhập mã xác nhận:");
+
+    if (fileVerificationCode !== mxn) {
+        alert('Mã xác nhận không đúng');
+        return;
+    }
+
+    // Nếu mã xác nhận đúng, xử lý file như bình thường
+    const fileInput = document.getElementById('file-input');
+    const file = fileInput.files[0];
     if (!file) return;
 
     const reader = new FileReader();
@@ -130,21 +146,23 @@ document.getElementById('file-input').addEventListener('change', (event) => {
         });
 
         saveNamesToLocalStorage(names); // Lưu tên vào localStorage
+        location.reload(); // Reload lại trang sau khi xử lý file
     };
     reader.readAsText(file);
 });
 
+
 // Xử lý việc lấy dữ liệu menu
 document.getElementById('fetch-button').addEventListener('click', async () => {
     const urlInput = document.getElementById('url-input');
-    const verificationCodeInput = document.getElementById('verification-code');
     const url = urlInput.value;
-    const verificationCode = verificationCodeInput.value.trim();
 
     if (!url) {
         alert('Vui lòng nhập URL');
         return;
     }
+
+    const verificationCode = prompt("Vui lòng nhập mã xác nhận:");
 
     if (verificationCode !== mxn) {
         alert('Mã xác nhận không đúng');
@@ -154,11 +172,9 @@ document.getElementById('fetch-button').addEventListener('click', async () => {
     saveUrlToLocalStorage(url); // Lưu URL vào localStorage
     document.getElementById('url-label').textContent = `URL hiện tại: ${url}`; // Cập nhật URL hiện tại
 
-    // Xóa dữ liệu localStorage khi nhấn nút "Lấy Dữ Liệu"
-    localStorage.removeItem('menuItems'); // Xóa thực đơn lưu trữ trước đó
-    localStorage.removeItem('selections'); // Xóa các lựa chọn trước đó
-
-    // Xóa nội dung của bảng số lượng món đã chọn
+    // Xóa dữ liệu cũ trong localStorage
+    localStorage.removeItem('menuItems');
+    localStorage.removeItem('selections');
     document.getElementById('selections-table').getElementsByTagName('tbody')[0].innerHTML = '';
 
     try {
@@ -181,10 +197,10 @@ document.getElementById('fetch-button').addEventListener('click', async () => {
 
         // Xóa các tùy chọn hiện có trong tất cả các dropdown
         dishesDropdowns.forEach(dropdown => {
-            dropdown.innerHTML = '<option value=""></option>'; // Clear tất cả tùy chọn hiện tại và thêm mục trống
+            dropdown.innerHTML = '<option value=""></option>'; // Xóa tùy chọn hiện tại
         });
 
-        // Hiển thị menu và cập nhật các dropdown với danh sách món mới
+        // Hiển thị menu và cập nhật dropdown
         menuItems.forEach(item => {
             if (item.status !== 'Hết hàng') {
                 const menuItemHTML =
@@ -194,7 +210,7 @@ document.getElementById('fetch-button').addEventListener('click', async () => {
                         </div>
                         <div class="menu-description">
                             <h4>${item.name}</h4>
-                            <p>${item.description || 'Không có mô tả'}</p> <!-- Thêm mô tả món ăn -->
+                            <p>${item.description || 'Không có mô tả'}</p>
                         </div>
                         <div class="menu-price">
                             ${item.price}
@@ -202,7 +218,7 @@ document.getElementById('fetch-button').addEventListener('click', async () => {
                     </div>`;
                 menuContainer.innerHTML += menuItemHTML;
 
-                // Cập nhật các dropdown với tên món
+                // Cập nhật dropdown với tên món
                 dishesDropdowns.forEach(dropdown => {
                     const option = document.createElement('option');
                     option.value = item.name;
@@ -212,11 +228,12 @@ document.getElementById('fetch-button').addEventListener('click', async () => {
             }
         });
 
-        saveMenuToLocalStorage(menuItems); // Lưu thực đơn mới vào localStorage
+        saveMenuToLocalStorage(menuItems); // Lưu menu vào localStorage
     } catch (error) {
         console.error('Có lỗi khi tải menu:', error);
     }
 });
+
 
 
 // Hàm cập nhật số lượng món đã chọn

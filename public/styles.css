@@ -2,16 +2,22 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: flex-end;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#main-container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
 }
 
 #left-container {
     width: 50%;
     padding: 15px;
     box-sizing: border-box;
-    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -21,6 +27,13 @@ body {
     width: 50%;
     display: flex;
     flex-direction: column;
+}
+
+#selections-summary {
+    width: 100%;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
 }
 
 .column {
@@ -41,8 +54,8 @@ h2 {
 #name-container {
     display: flex;
     flex-direction: column;
-    height: auto; /* Đặt chiều cao tự động để phù hợp với nội dung */
-    overflow: visible; /* Không dùng thanh cuộn, hiển thị toàn bộ nội dung */
+    height: auto;
+    overflow: visible;
 }
 
 .name-item {
@@ -71,8 +84,8 @@ h2 {
     list-style: none;
     padding: 0;
     margin: 0;
-    height: auto; /* Chiều cao tự động */
-    overflow: visible; /* Không có thanh cuộn */
+    height: auto;
+    overflow: visible;
 }
 
 #input-container {
@@ -188,31 +201,29 @@ h2 {
     background-color: #0056b3;
 }
 
-#url-label {
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 14px;
-    color: #333;
-}
-
 #selections-table {
     width: 100%;
-    border-collapse: separate; /* Đặt chế độ cho các ô của bảng để dễ điều chỉnh khoảng cách */
-    border-spacing: 0; /* Đặt khoảng cách giữa các ô */
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 #selections-table th,
 #selections-table td {
-    text-align: center; /* Căn giữa tiêu đề cột và nội dung ô */
-    padding: 10px; /* Tạo khoảng cách giữa nội dung và viền ô */
+    text-align: center;
+    padding: 10px;
 }
 
 #selections-table td {
-    border-bottom: 1px dashed #ccc; /* Đường gạch dưới giữa các món */
-    padding: 10px; /* Khoảng cách giữa các ô và viền bảng */
+    border-bottom: 1px dashed #ccc;
+    padding: 10px;
 }
 
-#selections-summary {
-    margin-bottom: 20px; /* Thêm khoảng cách 10px phía dưới khu vực hiển thị số lượng món đã chọn */
+#url-label-container {
+    margin-top: 10px;
+    /* Tạo khoảng cách giữa input và nhãn "URL hiện tại" */
 }
 
+#url-label {
+    font-size: 14px;
+    color: #333;
+}
