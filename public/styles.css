@@ -1,0 +1,218 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    height: 100vh;
+}
+
+#left-container {
+    width: 50%;
+    padding: 15px;
+    box-sizing: border-box;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#right-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+#file-input {
+    margin-bottom: 10px;
+}
+
+#name-container {
+    display: flex;
+    flex-direction: column;
+    height: auto; /* Đặt chiều cao tự động để phù hợp với nội dung */
+    overflow: visible; /* Không dùng thanh cuộn, hiển thị toàn bộ nội dung */
+}
+
+.name-item {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 0 8px;
+}
+
+.name-item span {
+    flex-basis: 45%;
+    text-align: left;
+}
+
+.dishes-dropdown {
+    flex-basis: 50%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#names-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: auto; /* Chiều cao tự động */
+    overflow: visible; /* Không có thanh cuộn */
+}
+
+#input-container {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+}
+
+#url-input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#verification-code {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#fetch-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+#fetch-button:hover {
+    background-color: #0056b3;
+}
+
+.menu {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 15px;
+}
+
+.menu-img img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.menu-description {
+    flex-grow: 1;
+    padding-left: 10px;
+}
+
+.menu-description h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.menu-description p {
+    margin: 5px 0 0 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.menu-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+#add-button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    width: 50%;
+    align-self: center;
+}
+
+#add-button:hover {
+    background-color: #218838;
+}
+
+#add-form {
+    margin-top: 10px;
+}
+
+#new-name-input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#submit-name-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+#submit-name-button:hover {
+    background-color: #0056b3;
+}
+
+#url-label {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+#selections-table {
+    width: 100%;
+    border-collapse: separate; /* Đặt chế độ cho các ô của bảng để dễ điều chỉnh khoảng cách */
+    border-spacing: 0; /* Đặt khoảng cách giữa các ô */
+}
+
+#selections-table th,
+#selections-table td {
+    text-align: center; /* Căn giữa tiêu đề cột và nội dung ô */
+    padding: 10px; /* Tạo khoảng cách giữa nội dung và viền ô */
+}
+
+#selections-table td {
+    border-bottom: 1px dashed #ccc; /* Đường gạch dưới giữa các món */
+    padding: 10px; /* Khoảng cách giữa các ô và viền bảng */
+}
+
+#selections-summary {
+    margin-bottom: 20px; /* Thêm khoảng cách 10px phía dưới khu vực hiển thị số lượng món đã chọn */
+}
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="left-container">
+        <div class="column">
+            <input type="file" id="file-input" accept=".txt">
+            <div id="name-container">
+                <div id="names-list">
+                    <!-- Các tên người đặt sẽ được thêm vào ở đây -->
+                </div>
+            </div>
+            <!-- Nút Add và khu vực thêm tên -->
+            <button id="add-button">Add new member</button>
+            <div id="add-form" style="display: none;">
+                <input type="text" id="new-name-input" placeholder="Nhập tên mới">
+                <button id="submit-name-button">Submit</button>
+            </div>
+            <!-- Khu vực hiển thị số lượng món đã chọn -->
+            <div id="selections-summary">
+                <table id="selections-table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>Món</th>
+                            <th>Số lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Các món đã chọn và số lượng sẽ được thêm vào ở đây -->
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div id="right-container">
+        <div id="input-container">
+            <input type="text" id="url-input" placeholder="Nhập URL ở đây">
+            <input type="password" id="verification-code" placeholder="Nhập mã xác nhận">
+            <button id="fetch-button">Lấy Dữ Liệu</button>
+            <span id="url-label"></span>
+        </div>
+        <div class="menu" id="menu"></div>
+    </div>
+
+    <script src="scripts.js"></script>
+
+</body>
+
+</html>
