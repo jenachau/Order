@@ -196,7 +196,13 @@ h2 {
     color: #fff;
     cursor: pointer;
 }
-
+#price-limit-input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 10%;
+}
 #submit-name-button:hover {
     background-color: #0056b3;
 }

@@ -157,22 +157,24 @@ document.getElementById('fetch-button').addEventListener('click', async () => {
     const urlInput = document.getElementById('url-input');
     const url = urlInput.value;
 
+    const priceLimitInput = document.getElementById('price-limit-input');
+    const priceLimit = parseFloat(priceLimitInput.value); // Lấy giá trị số từ ô input
+
     if (!url) {
         alert('Vui lòng nhập URL');
         return;
     }
 
     const verificationCode = prompt("Vui lòng nhập mã xác nhận:");
-
     if (verificationCode !== mxn) {
         alert('Mã xác nhận không đúng');
         return;
     }
 
     saveUrlToLocalStorage(url); // Lưu URL vào localStorage
-    document.getElementById('url-label').textContent = `URL hiện tại: ${url}`; // Cập nhật URL hiện tại
+    document.getElementById('url-label').textContent = `URL hiện tại: ${url}`;
 
-    // Xóa dữ liệu cũ trong localStorage
+    // Xóa dữ liệu cũ
     localStorage.removeItem('menuItems');
     localStorage.removeItem('selections');
     document.getElementById('selections-table').getElementsByTagName('tbody')[0].innerHTML = '';
@@ -195,45 +197,75 @@ document.getElementById('fetch-button').addEventListener('click', async () => {
         const dishesDropdowns = document.querySelectorAll('.dishes-dropdown');
         menuContainer.innerHTML = '';
 
-        // Xóa các tùy chọn hiện có trong tất cả các dropdown
+        // Xóa tùy chọn hiện tại trong các dropdown
         dishesDropdowns.forEach(dropdown => {
             dropdown.innerHTML = '<option value=""></option>'; // Xóa tùy chọn hiện tại
         });
 
-        // Hiển thị menu và cập nhật dropdown
-        menuItems.forEach(item => {
-            if (item.status !== 'Hết hàng') {
-                const menuItemHTML =
-                    `<div class="menu-item">
-                        <div class="menu-img">
-                            <img src="${item.image}" alt="${item.name}">
-                        </div>
-                        <div class="menu-description">
-                            <h4>${item.name}</h4>
-                            <p>${item.description || 'Không có mô tả'}</p>
-                        </div>
-                        <div class="menu-price">
-                            ${item.price}
-                        </div>
-                    </div>`;
-                menuContainer.innerHTML += menuItemHTML;
+        if (isNaN(priceLimit)) {
+            menuItems.forEach(item => {
+                if (item.status !== 'Hết hàng') {
+                    const menuItemHTML =
+                        `<div class="menu-item">
+                            <div class="menu-img">
+                                <img src="${item.image}" alt="${item.name}">
+                            </div>
+                            <div class="menu-description">
+                                <h4>${item.name}</h4>
+                                <p>${item.description || 'Không có mô tả'}</p>
+                            </div>
+                            <div class="menu-price">
+                                ${item.price}
+                            </div>
+                        </div>`;
+                    menuContainer.innerHTML += menuItemHTML;
 
-                // Cập nhật dropdown với tên món
-                dishesDropdowns.forEach(dropdown => {
-                    const option = document.createElement('option');
-                    option.value = item.name;
-                    option.textContent = item.name;
-                    dropdown.appendChild(option);
-                });
-            }
-        });
+                    // Cập nhật dropdown với tên món
+                    dishesDropdowns.forEach(dropdown => {
+                        const option = document.createElement('option');
+                        option.value = item.name;
+                        option.textContent = item.name;
+                        dropdown.appendChild(option);
+                    });
+                }
+            });
+        } else {
+            // Hiển thị các món có giá nhỏ hơn giá trị đã nhập
+            menuItems.forEach(item => {
+                const itemPrice = parseFloat(item.price.split('.')[0]);
+
+                if (itemPrice <= priceLimit && item.status !== 'Hết hàng') {
+                    const menuItemHTML =
+                        `<div class="menu-item">
+                <div class="menu-img">
+                    <img src="${item.image}" alt="${item.name}">
+                </div>
+                <div class="menu-description">
+                    <h4>${item.name}</h4>
+                    <p>${item.description || 'Không có mô tả'}</p>
+                </div>
+                <div class="menu-price">
+                    ${item.price}
+                </div>
+            </div>`;
+                    menuContainer.innerHTML += menuItemHTML;
+
+                    // Cập nhật dropdown với tên món
+                    dishesDropdowns.forEach(dropdown => {
+                        const option = document.createElement('option');
+                        option.value = item.name;
+                        option.textContent = item.name;
+                        dropdown.appendChild(option);
+                    });
+                }
+            });
+        }
 
         saveMenuToLocalStorage(menuItems); // Lưu menu vào localStorage
     } catch (error) {
         console.error('Có lỗi khi tải menu:', error);
     }
 });
-
 
 
 // Hàm cập nhật số lượng món đã chọn
